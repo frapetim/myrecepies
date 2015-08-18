@@ -2,19 +2,28 @@
   
 <div class='row'>
   <div class='col-md-4 pull-right center'>
-      <%= gravatar_for @recipe.chef, size: 200 %>
-      <p>
-        <h5>By <%= @recipe.chef.chefname %></h5>
-      </p>
+    <%= gravatar_for @recipe.chef, size: 200 %>
+    <p>
+      <h5>By <%= @recipe.chef.chefname %></h5>
+    </p>
   </div>
+  
   <div class='col-md-8'>
-      <%= link_to 'Edit this recipe', edit_recipe_path(@recipe), class: 'btn btn-success pull-right' %>
-      <h3><%= @recipe.summary %></h3>
-      <div>
-        <%= image_tag(@recipe.picture.url, class: 'gravatar') if @recipe.picture? %>
-      </div>
+    <%= link_to 'Edit this recipe', edit_recipe_path(@recipe), class: 'btn btn-success pull-right' %>
+    <h3><%= @recipe.summary %></h3>
+    <div>
+      <%= image_tag(@recipe.picture.url, class: 'gravatar') if @recipe.picture? %>
+    </div>
     <div class='well'>
-        <p><%= simple_format(@recipe.description) %></p>
+      <p><%= simple_format(@recipe.description) %></p>
+      <div class='pull-right'>
+        <%= link_to like_recipe_path(@recipe, like: true), method: :post do %>
+          <i class='glyphicon glyphicon-thumbs-up'></i> &nbsp <%= @recipe.thumbs_up_total %>
+        <% end %> &nbsp&nbsp&nbsp&nbsp
+        <%= link_to like_recipe_path(@recipe, like: false), method: :post do %>
+          <i class='glyphicon glyphicon-thumbs-down'></i> &nbsp <%= @recipe.thumbs_down_total %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
